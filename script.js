@@ -100,3 +100,61 @@ document.querySelectorAll(".project-card").forEach((card) => {
   card.style.animation = "none";
   observer.observe(card);
 });
+
+// Image Modal/Lightbox Functionality
+const modal = document.getElementById("imageModal");
+const modalImg = document.getElementById("modalImage");
+const closeBtn = document.querySelector(".close-modal");
+
+// Initialize lightbox
+function initLightbox() {
+  console.log("Initializing lightbox...");
+  
+  // Get all project images
+  const projectImages = document.querySelectorAll(".project-image-placeholder img");
+  console.log("Found " + projectImages.length + " project images");
+  
+  projectImages.forEach((img, index) => {
+    img.addEventListener("click", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      console.log("Image " + index + " clicked");
+      
+      modal.classList.add("active");
+      modalImg.src = this.src;
+      modalImg.alt = this.alt;
+      document.body.style.overflow = "hidden";
+    });
+  });
+  
+  // Close button
+  if (closeBtn) {
+    closeBtn.addEventListener("click", closeModal);
+  }
+  
+  // Click outside to close
+  modal.addEventListener("click", function (e) {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+  
+  // Escape key to close
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && modal.classList.contains("active")) {
+      closeModal();
+    }
+  });
+}
+
+function closeModal() {
+  modal.classList.remove("active");
+  document.body.style.overflow = "auto";
+}
+
+// Run when DOM is ready
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initLightbox);
+} else {
+  initLightbox();
+}
