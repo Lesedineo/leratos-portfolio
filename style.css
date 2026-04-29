@@ -265,6 +265,13 @@ body {
   overflow: hidden;
 }
 
+.project-image-placeholder img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 .project-card .placeholder-box {
   min-height: 250px;
   border-radius: 0;
